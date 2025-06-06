@@ -107,6 +107,7 @@ int main() {
     Cube lightCube(0.5f, 0.5f, 0.5f);
     lightCube.uploadToGPU();
 
+
     //cube positions 
     glm::vec3 cubePositions[] = {
             glm::vec3(0.0f,  0.0f, 3.2f),
