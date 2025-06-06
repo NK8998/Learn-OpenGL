@@ -1,0 +1,42 @@
+#pragma once
+
+#include <vector>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <shader.h>
+
+
+class Cube {
+public:
+	Cube(float width = 1.0f, float height = 1.0f, float depth = 1.0f);
+
+	void stretch(float newWidth, float newHeight, float newDepth);
+
+	const std::vector<float>& getVertices() const;
+
+	unsigned int getVAO() const;
+
+	void uploadToGPU();
+
+	void render(glm::vec3 cubePosition, Shader& shader);
+
+	void setTextures(const char* tex_path1, const char* tex_path2);
+
+	void setFaceTexture(int faceIndex, const char* texPath);
+
+private:
+	unsigned int texture1, texture2;
+
+	float width, height, depth;
+
+	std::vector<float> vertices;
+
+	unsigned int VAO, VBO;
+
+	unsigned int faceTextures[6]; 
+
+
+
+	void generateVertices();
+};

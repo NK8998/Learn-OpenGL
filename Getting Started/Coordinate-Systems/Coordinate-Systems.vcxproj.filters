@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\Transformations, Textures and Hello Triangle\glad.c" />
+    <ClCompile Include="sources\scene.cpp" />
+    <ClCompile Include="sources\cube.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="includes\stb_image.h" />
+    <ClInclude Include="includes\shader.h" />
+    <ClInclude Include="includes\functions.h" />
+    <ClInclude Include="includes\cube.h" />
+    <ClInclude Include="includes\scene.h" />
+    <ClInclude Include="includes\textures.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fshader1.frag" />
+    <None Include="shaders\fshader2.frag" />
+    <None Include="shaders\fshader3.frag" />
+    <None Include="shaders\vshader.vert" />
+    <None Include="shaders\vshader2.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\tex_img3.jfif" />
+    <Image Include="assets\texture_img1.jpg" />
+    <Image Include="assets\texture_img2.png" />
+  </ItemGroup>
+</Project>
