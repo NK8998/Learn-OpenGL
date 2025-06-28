@@ -50,7 +50,7 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 //lighting
-glm::vec3 lightPos(1.2f, 1.5f, 3.0f);
+glm::vec3 lightPos(1.2f, 1.5f, -2.0f);
 glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
@@ -139,7 +139,7 @@ int main() {
         glm::vec3 movingLight = glm::vec3(changingX, lightPos.y, lightPos.z);
 
         lightingShader.use();
-        lightingShader.setVec3("lightPos", movingLight);
+        lightingShader.setVec3("movingLightPos", movingLight);
         lightingShader.setVec3("viewPos", cameraPos);
         lightingShader.setVec3("objectColor", objectColor);
         lightingShader.setVec3("lightColor", lightColor);
@@ -177,7 +177,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     const float cameraSpeed = 0.05f;
-    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
+    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) 
+    {
         std::cout << "Space key callback - single press!" << std::endl;
     }
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
