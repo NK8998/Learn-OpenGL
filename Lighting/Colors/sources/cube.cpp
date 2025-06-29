@@ -175,10 +175,10 @@ void Cube::render(glm::vec3 cubePosition, Shader &shader)
             glBindTexture(GL_TEXTURE_2D, faceTextures[i].overlay);
 
         }
+        glDrawArrays(GL_TRIANGLES, i * 6, 6);
 
     }
 
-    glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
 

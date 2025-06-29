@@ -182,7 +182,7 @@ int main() {
 
         lightingShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
         lightingShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
-        lightingShader.setVec3("light.specular", glm::vec3(0.3f, 0.3f, 0.3f));
+        lightingShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
 
         lightingShader.setMat4("projection", projection);
