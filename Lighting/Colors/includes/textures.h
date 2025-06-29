@@ -19,8 +19,7 @@ public:
         stbi_set_flip_vertically_on_load(true);
 
         glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
@@ -29,7 +28,7 @@ public:
         //set the texture wrapping/filtering options
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         int width, height, nrChannels;
@@ -39,11 +38,7 @@ public:
         {
             GLenum format = GL_RGB;
             if (nrChannels == 4)
-            {
-                glEnable(GL_BLEND);
-                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 format = GL_RGBA;
-            }
             else if (nrChannels == 3)
                 format = GL_RGB;
             else if (nrChannels == 1)

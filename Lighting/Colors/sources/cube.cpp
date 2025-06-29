@@ -13,6 +13,8 @@ Cube::Cube(float width, float height, float depth)
     : width(width), height(height), depth(depth)
 {
     generateVertices();
+    uploadToGPU();
+
 }
 
 void Cube::stretch(float newWidth, float newHeight, float newDepth)
@@ -37,52 +39,53 @@ void Cube::generateVertices()
 
     vertices = {
         // Back face
-        -w, -h, -d, 0.0f,  0.0f, -1.0f,
-         w, -h, -d, 0.0f,  0.0f, -1.0f,
-         w,  h, -d, 0.0f,  0.0f, -1.0f,
-         w,  h, -d, 0.0f,  0.0f, -1.0f,
-        -w,  h, -d, 0.0f,  0.0f, -1.0f,
-        -w, -h, -d, 0.0f,  0.0f, -1.0f,
+        // positions // normals           // texture coords
+        -w, -h, -d,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+         w, -h, -d,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+         w,  h, -d,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+         w,  h, -d,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+        -w,  h, -d,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+        -w, -h, -d,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
         // Front face
-        -w, -h,  d, 0.0f,  0.0f, 1.0f,
-         w, -h,  d, 0.0f,  0.0f, 1.0f,
-         w,  h,  d, 0.0f,  0.0f, 1.0f,
-         w,  h,  d, 0.0f,  0.0f, 1.0f,
-        -w,  h,  d, 0.0f,  0.0f, 1.0f,
-        -w, -h,  d, 0.0f,  0.0f, 1.0f,
+        -w, -h,  d, 0.0f,  0.0f, 1.0f,    0.0f, 0.0f,
+         w, -h,  d, 0.0f,  0.0f, 1.0f,    1.0f, 0.0f,
+         w,  h,  d, 0.0f,  0.0f, 1.0f,    1.0f, 1.0f,
+         w,  h,  d, 0.0f,  0.0f, 1.0f,    1.0f, 1.0f,
+        -w,  h,  d, 0.0f,  0.0f, 1.0f,    0.0f, 1.0f,
+        -w, -h,  d, 0.0f,  0.0f, 1.0f,    0.0f, 0.0f,
 
         // Left face
-        -w,  h,  d, -1.0f,  0.0f,  0.0f,
-        -w,  h, -d, -1.0f,  0.0f,  0.0f,
-        -w, -h, -d, -1.0f,  0.0f,  0.0f,
-        -w, -h, -d, -1.0f,  0.0f,  0.0f,
-        -w, -h,  d, -1.0f,  0.0f,  0.0f,
-        -w,  h,  d, -1.0f,  0.0f,  0.0f,
+        -w,  h,  d, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+        -w,  h, -d, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+        -w, -h, -d, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -w, -h, -d, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -w, -h,  d, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+        -w,  h,  d, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
         // Right face
-         w,  h,  d, 1.0f,  0.0f,  0.0f,
-         w,  h, -d, 1.0f,  0.0f,  0.0f,
-         w, -h, -d, 1.0f,  0.0f,  0.0f,
-         w, -h, -d, 1.0f,  0.0f,  0.0f,
-         w, -h,  d, 1.0f,  0.0f,  0.0f,
-         w,  h,  d, 1.0f,  0.0f,  0.0f,
+         w,  h,  d, 1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
+         w,  h, -d, 1.0f,  0.0f,  0.0f,   1.0f, 1.0f,
+         w, -h, -d, 1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
+         w, -h, -d, 1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
+         w, -h,  d, 1.0f,  0.0f,  0.0f,   0.0f, 0.0f,
+         w,  h,  d, 1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
 
          // Bottom face
-         -w, -h, -d, 0.0f, -1.0f,  0.0f,
-          w, -h, -d, 0.0f, -1.0f,  0.0f,
-          w, -h,  d, 0.0f, -1.0f,  0.0f,
-          w, -h,  d, 0.0f, -1.0f,  0.0f,
-         -w, -h,  d, 0.0f, -1.0f,  0.0f,
-         -w, -h, -d, 0.0f, -1.0f,  0.0f,
+         -w, -h, -d, 0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+          w, -h, -d, 0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+          w, -h,  d, 0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+          w, -h,  d, 0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+         -w, -h,  d, 0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+         -w, -h, -d, 0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
          // Top face
-         -w,  h, -d, 0.0f,  1.0f,  0.0f,
-          w,  h, -d, 0.0f,  1.0f,  0.0f,
-          w,  h,  d, 0.0f,  1.0f,  0.0f,
-          w,  h,  d, 0.0f,  1.0f,  0.0f,
-         -w,  h,  d, 0.0f,  1.0f,  0.0f,
-         -w,  h, -d, 0.0f,  1.0f,  0.0f
+         -w,  h, -d, 0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+          w,  h, -d, 0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+          w,  h,  d, 0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+          w,  h,  d, 0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+         -w,  h,  d, 0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+         -w,  h, -d, 0.0f,  1.0f,  0.0f,  0.0f, 1.0f
     };
 
 }
@@ -104,10 +107,12 @@ void Cube::uploadToGPU()
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
 }
@@ -126,14 +131,21 @@ void Cube::setTextures(const char* tex_path1, const char* tex_path2)
 
 }
 
-void Cube::setFaceTexture(int faceIndex, const char* texPath) {
+void Cube::setFaceTexture(int faceIndex, const char* basePath, const char* overlayPath) {
     if (faceIndex < 0 || faceIndex >= 6) {
         std::cerr << "Invalid face index\n";
         return;
     }
 
-    Texture_Loader tex(texPath);
-    faceTextures[faceIndex] = tex.texture;
+    if (basePath) {
+        Texture_Loader baseTex(basePath);
+        faceTextures[faceIndex].base = baseTex.texture;
+    }
+
+    if (overlayPath) {
+        Texture_Loader overlayTex(overlayPath);
+        faceTextures[faceIndex].overlay = overlayTex.texture;
+    }
 }
 
 
@@ -149,15 +161,25 @@ void Cube::render(glm::vec3 cubePosition, Shader &shader)
 
     
     for (int i = 0; i < 6; ++i) {
-        if (faceTextures[i] != 0)
+        if (faceTextures[i].base != 0)
         {
+            shader.setInt("material.diffuse", 0);
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, faceTextures[i]);
-            shader.setInt("texture1", 0);
+            glBindTexture(GL_TEXTURE_2D, faceTextures[i].base);
+
         }
-           
-        glDrawArrays(GL_TRIANGLES, i * 6, 6);
-  
+        if (faceTextures[i].overlay != 0) 
+        {
+            shader.setInt("material.specular", 1);
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_2D, faceTextures[i].overlay);
+
+        }
+
     }
+
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
 
 }

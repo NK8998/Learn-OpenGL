@@ -6,6 +6,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <shader.h>
 
+struct FaceTexture {
+	unsigned int base = 0;   
+	unsigned int overlay = 0; 
+};
 
 class Cube {
 public:
@@ -23,7 +27,7 @@ public:
 
 	void setTextures(const char* tex_path1, const char* tex_path2);
 
-	void setFaceTexture(int faceIndex, const char* texPath);
+	void setFaceTexture(int faceIndex, const char* basePath, const char* overlayPath = nullptr);
 
 private:
 	unsigned int texture1, texture2;
@@ -34,7 +38,7 @@ private:
 
 	unsigned int VAO, VBO;
 
-	unsigned int faceTextures[6]; 
+	FaceTexture faceTextures[6];
 
 
 

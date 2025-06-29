@@ -5,6 +5,7 @@
 #include <string>
 #include <filesystem>
 #include <algorithm>
+#include <vector>
 
 #include <shader.h>
 #include <functions.h>
@@ -54,6 +55,7 @@ glm::vec3 lightPos(1.2f, 1.5f, -2.0f);
 glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
+
 int main() {
     //glfw: initialize and configure
 
@@ -102,18 +104,43 @@ int main() {
     Shader lightingShader("shaders/colors.vert", "shaders/colors.frag");
     Shader lightCubeShader("shaders/light_cube.vert", "shaders/light_cube.frag");
 
-    Cube cube(1.0f, 1.0f, 1.0f);
-    cube.uploadToGPU();
-    Cube lightCube(0.5f, 0.5f, 0.5f);
-    lightCube.uploadToGPU();
 
-
-    //cube positions 
+    //diamond-ish
     glm::vec3 cubePositions[] = {
-            glm::vec3(0.0f,  0.0f, 3.2f),
-            glm::vec3(0.0f,  0.0f, -3.2f),
-            glm::vec3(4.0f,  0.0f, -3.2f),
+        glm::vec3(-2.0f, 0.0f,  2.5f),
+        glm::vec3(2.0f, 0.0f,  2.5f),
+
+        glm::vec3(-3.0f, 0.0f,  1.25f),
+        glm::vec3(3.0f, 0.0f,  1.25f),
+
+        glm::vec3(-3.5f, 0.0f,  0.0f),
+        glm::vec3(3.5f, 0.0f,  0.0f),
+
+        glm::vec3(-3.0f, 0.0f, -1.25f),
+        glm::vec3(3.0f, 0.0f, -1.25f),
+
+        glm::vec3(-2.0f, 0.0f, -2.5f),
+        glm::vec3(2.0f, 0.0f, -2.5f),
     };
+
+    std::vector<Cube> cubeMesh;
+    cubeMesh.reserve(10);
+
+
+    for (int i = 0; i < 10; ++i) {
+        Cube cube(1.0f, 1.0f, 1.0f);
+        cube.setFaceTexture(0, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(1, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(2, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(3, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(4, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(5, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
+
+        cubeMesh.push_back(cube);
+    }
+
+    Cube lightCube(0.5f, 0.5f, 0.5f);
+
 
     //render loop
     while (!glfwWindowShouldClose(window))
@@ -138,21 +165,38 @@ int main() {
 
         glm::vec3 movingLight = glm::vec3(changingX, lightPos.y, lightPos.z);
 
+        /*
+        lightColor.x = sin(glfwGetTime() * 2.0f);
+        lightColor.y = sin(glfwGetTime() * 0.7f);
+        lightColor.z = sin(glfwGetTime() * 1.3f);
+
+        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
+        */
+
         lightingShader.use();
         lightingShader.setVec3("movingLightPos", movingLight);
         lightingShader.setVec3("viewPos", cameraPos);
-        lightingShader.setVec3("objectColor", objectColor);
-        lightingShader.setVec3("lightColor", lightColor);
-        lightingShader.setFloat("mixRatio", mixRatio);
+
+        lightingShader.setFloat("material.shininess", 64.0f);
+
+        lightingShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
+        lightingShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
+        lightingShader.setVec3("light.specular", glm::vec3(0.3f, 0.3f, 0.3f));
+
 
         lightingShader.setMat4("projection", projection);
         lightingShader.setMat4("view", view);
 
-        cube.render(cubePositions[0], lightingShader);
+        for (int i = 0; i < cubeMesh.size(); ++i) {
+            cubeMesh[i].render(cubePositions[i], lightingShader);
+            
+        }
 
         lightCubeShader.use();
         lightCubeShader.setMat4("projection", projection);
         lightCubeShader.setMat4("view", view);
+        lightCubeShader.setVec3("lightColor", lightColor);
 
         lightCube.render(movingLight, lightCubeShader);
 
