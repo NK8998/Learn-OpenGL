@@ -14,7 +14,6 @@ Cube::Cube(float width, float height, float depth)
 {
     generateVertices();
     uploadToGPU();
-
 }
 
 void Cube::stretch(float newWidth, float newHeight, float newDepth)
@@ -120,31 +119,59 @@ void Cube::uploadToGPU()
 void Cube::setTextures(const char* tex_path1, const char* tex_path2)
 {
     if (tex_path1) {
-        Texture_Loader tex1(tex_path1);
-        texture1 = tex1.texture;
+        unsigned int texture = loadTexture(tex_path1);
+        texture1 = texture;
     }
 
     if (tex_path2) {
-        Texture_Loader tex2(tex_path2);
-        texture2 = tex2.texture;
+        unsigned int texture = loadTexture(tex_path2);
+        texture2 = texture;
     }
 
 }
 
+
+unsigned int Cube::checkIfTextureExists(const char* path) {
+
+    auto it = textureMap.find(std::string(path));
+
+    if (it != textureMap.end()) {
+        return it->second;
+    }
+    else {
+        return 0;
+    }
+}
+
 void Cube::setFaceTexture(int faceIndex, const char* basePath, const char* overlayPath) {
+
     if (faceIndex < 0 || faceIndex >= 6) {
         std::cerr << "Invalid face index\n";
         return;
     }
-
+    
     if (basePath) {
-        Texture_Loader baseTex(basePath);
-        faceTextures[faceIndex].base = baseTex.texture;
+        unsigned int base = checkIfTextureExists(basePath);
+
+        if (!base) {
+            base = loadTexture(basePath);
+            textureMap[std::string(basePath)] = base;
+        }
+
+        faceTextures[faceIndex].base = base;
+        
     }
 
     if (overlayPath) {
-        Texture_Loader overlayTex(overlayPath);
-        faceTextures[faceIndex].overlay = overlayTex.texture;
+        unsigned int overlay = checkIfTextureExists(overlayPath);
+
+        if (!overlay) {
+            overlay = loadTexture(overlayPath);
+            textureMap[std::string(overlayPath)] = overlay;
+        }
+
+        faceTextures[faceIndex].overlay = overlay;
+
     }
 }
 

@@ -10,10 +10,7 @@
 #include <shader.h>
 #include <functions.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-
 #include <cube.h>
-#include <textures.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -125,7 +122,6 @@ int main() {
 
     std::vector<Cube> cubeMesh;
     cubeMesh.reserve(10);
-
 
     for (int i = 0; i < 10; ++i) {
         Cube cube(1.0f, 1.0f, 1.0f);

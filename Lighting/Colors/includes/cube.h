@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <unordered_map>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -40,7 +41,9 @@ private:
 
 	FaceTexture faceTextures[6];
 
+	std::unordered_map<std::string, unsigned int> textureMap;
 
+	unsigned int checkIfTextureExists(const char* path);
 
 	void generateVertices();
 };
