@@ -9,6 +9,7 @@
 
 struct FaceTexture {
 	unsigned int base = 0;   
+	unsigned int emmission = 0;
 	unsigned int overlay = 0; 
 };
 
@@ -28,7 +29,7 @@ public:
 
 	void setTextures(const char* tex_path1, const char* tex_path2);
 
-	void setFaceTexture(int faceIndex, const char* basePath, const char* overlayPath = nullptr);
+	void setFaceTexture(int faceIndex, const char* basePath, const char* emissionPath, const char* overlayPath);
 
 private:
 	unsigned int texture1, texture2;

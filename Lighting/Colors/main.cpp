@@ -125,12 +125,12 @@ int main() {
 
     for (int i = 0; i < 10; ++i) {
         Cube cube(1.0f, 1.0f, 1.0f);
-        cube.setFaceTexture(0, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
-        cube.setFaceTexture(1, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
-        cube.setFaceTexture(2, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
-        cube.setFaceTexture(3, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
-        cube.setFaceTexture(4, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
-        cube.setFaceTexture(5, "../../images/wooden_box_2.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(0, "../../images/wooden_box_2.jpg", "../../images/emission_map.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(1, "../../images/wooden_box_2.jpg", "../../images/emission_map.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(2, "../../images/wooden_box_2.jpg", "../../images/emission_map.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(3, "../../images/wooden_box_2.jpg", "../../images/emission_map.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(4, "../../images/wooden_box_2.jpg", "../../images/emission_map.jpg", "../../images/wooden_box_spec.png");
+        cube.setFaceTexture(5, "../../images/wooden_box_2.jpg", "../../images/emission_map.jpg", "../../images/wooden_box_spec.png");
 
         cubeMesh.push_back(cube);
     }

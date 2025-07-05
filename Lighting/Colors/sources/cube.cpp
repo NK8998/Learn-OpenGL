@@ -143,7 +143,7 @@ unsigned int Cube::checkIfTextureExists(const char* path) {
     }
 }
 
-void Cube::setFaceTexture(int faceIndex, const char* basePath, const char* overlayPath) {
+void Cube::setFaceTexture(int faceIndex, const char* basePath, const char* emissionPath, const char* overlayPath) {
 
     if (faceIndex < 0 || faceIndex >= 6) {
         std::cerr << "Invalid face index\n";
@@ -160,6 +160,17 @@ void Cube::setFaceTexture(int faceIndex, const char* basePath, const char* overl
 
         faceTextures[faceIndex].base = base;
         
+    }
+
+    if (emissionPath) {
+        unsigned int emission = checkIfTextureExists(emissionPath);
+
+        if (!emission) {
+            emission = loadTexture(emissionPath);
+            textureMap[std::string(emissionPath)] = emission;
+        }
+
+        faceTextures[faceIndex].emmission = emission;
     }
 
     if (overlayPath) {
@@ -195,13 +206,21 @@ void Cube::render(glm::vec3 cubePosition, Shader &shader)
             glBindTexture(GL_TEXTURE_2D, faceTextures[i].base);
 
         }
+        if (faceTextures[i].emmission != 0)
+        {
+            shader.setInt("material.emission", 1);
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_2D, faceTextures[i].emmission);
+
+        }
         if (faceTextures[i].overlay != 0) 
         {
-            shader.setInt("material.specular", 1);
-            glActiveTexture(GL_TEXTURE1);
+            shader.setInt("material.specular", 2);
+            glActiveTexture(GL_TEXTURE2);
             glBindTexture(GL_TEXTURE_2D, faceTextures[i].overlay);
 
         }
+
         glDrawArrays(GL_TRIANGLES, i * 6, 6);
 
     }
