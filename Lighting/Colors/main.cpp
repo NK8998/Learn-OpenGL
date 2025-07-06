@@ -39,8 +39,8 @@ bool firstMouse = true;
 bool droneCam = false;
 float yaw   = -90.0f;
 float pitch =  0.0f;
-float lastX =  800.0f / 2.0;
-float lastY =  600.0f / 2.0;
+float lastX =  SCR_WIDTH / 2.0;
+float lastY =  SCR_HEIGHT / 2.0;
 float fov   =  45.0f;
 
 //timing
@@ -48,7 +48,7 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 //lighting
-glm::vec3 lightPos(1.2f, 1.5f, -2.0f);
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
@@ -104,20 +104,16 @@ int main() {
 
     //diamond-ish
     glm::vec3 cubePositions[] = {
-        glm::vec3(-2.0f, 0.0f,  2.5f),
-        glm::vec3(2.0f, 0.0f,  2.5f),
-
-        glm::vec3(-3.0f, 0.0f,  1.25f),
-        glm::vec3(3.0f, 0.0f,  1.25f),
-
-        glm::vec3(-3.5f, 0.0f,  0.0f),
-        glm::vec3(3.5f, 0.0f,  0.0f),
-
-        glm::vec3(-3.0f, 0.0f, -1.25f),
-        glm::vec3(3.0f, 0.0f, -1.25f),
-
-        glm::vec3(-2.0f, 0.0f, -2.5f),
-        glm::vec3(2.0f, 0.0f, -2.5f),
+        glm::vec3(0.0f,  0.0f,  0.0f),
+        glm::vec3(2.0f,  5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8f, -2.0f, -12.3f),
+        glm::vec3(2.4f, -0.4f, -3.5f),
+        glm::vec3(-1.7f,  3.0f, -7.5f),
+        glm::vec3(1.3f, -2.0f, -2.5f),
+        glm::vec3(1.5f,  2.0f, -2.5f),
+        glm::vec3(1.5f,  0.2f, -1.5f),
+        glm::vec3(-1.3f,  1.0f, -1.5f)
     };
 
     std::vector<Cube> cubeMesh;
@@ -160,32 +156,29 @@ int main() {
         float changingX = sin(glfwGetTime() * lightPos.x) * 2;
 
         glm::vec3 movingLight = glm::vec3(changingX, lightPos.y, lightPos.z);
-
-        /*
-        lightColor.x = sin(glfwGetTime() * 2.0f);
-        lightColor.y = sin(glfwGetTime() * 0.7f);
-        lightColor.z = sin(glfwGetTime() * 1.3f);
-
-        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-        */
+        glm::vec3 movinglightPos = glm::vec3(view * glm::vec4(movingLight, 1.0));
+  
 
         lightingShader.use();
-        lightingShader.setVec3("movingLightPos", movingLight);
         lightingShader.setVec3("viewPos", cameraPos);
 
         lightingShader.setFloat("material.shininess", 64.0f);
+
+        lightingShader.setVec3("light.position", movinglightPos);
 
         lightingShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
         lightingShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
         lightingShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
+        lightingShader.setFloat("light.constant", 1.0f);
+        lightingShader.setFloat("light.linear", 0.09f);
+        lightingShader.setFloat("light.quadratic", 0.032f);
 
         lightingShader.setMat4("projection", projection);
         lightingShader.setMat4("view", view);
 
         for (int i = 0; i < cubeMesh.size(); ++i) {
-            cubeMesh[i].render(cubePositions[i], lightingShader);
+            cubeMesh[i].render(cubePositions[i], lightingShader, i);
             
         }
 
@@ -193,6 +186,7 @@ int main() {
         lightCubeShader.setMat4("projection", projection);
         lightCubeShader.setMat4("view", view);
         lightCubeShader.setVec3("lightColor", lightColor);
+
 
         lightCube.render(movingLight, lightCubeShader);
 

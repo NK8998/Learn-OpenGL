@@ -25,7 +25,7 @@ public:
 
 	void uploadToGPU();
 
-	void render(glm::vec3 cubePosition, Shader& shader);
+	void render(glm::vec3 cubePosition, Shader& shader, unsigned int index = 0);
 
 	void setTextures(const char* tex_path1, const char* tex_path2);
 

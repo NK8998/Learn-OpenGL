@@ -187,13 +187,14 @@ void Cube::setFaceTexture(int faceIndex, const char* basePath, const char* emiss
 }
 
 
-void Cube::render(glm::vec3 cubePosition, Shader &shader) 
+void Cube::render(glm::vec3 cubePosition, Shader &shader, unsigned int index) 
 {
     shader.use();
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, cubePosition);
-    model = glm::rotate(model, 0.0f, glm::vec3(0.5f, 1.0f, 0.0f));
+    float angle = 20.0f * index;
+    model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
     shader.setMat4("model", model);
     glBindVertexArray(VAO);
 
