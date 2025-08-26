@@ -15,33 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\stb_loader.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\colors.frag" />
-    <None Include="shaders\light_cube.frag" />
-    <None Include="shaders\fshader3.frag" />
-    <None Include="shaders\colors.vert" />
-    <None Include="shaders\vshader2.vert" />
-    <None Include="shaders\light_cube.vert">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="includes\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="includes\cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -51,17 +27,42 @@
     <ClInclude Include="includes\scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="includes\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\shader.h">
+    <ClInclude Include="includes\stb_loader.cpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\textures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\colors.frag" />
+    <None Include="shaders\colors.vert" />
+    <None Include="shaders\fshader3.frag" />
+    <None Include="shaders\light_cube.frag" />
+    <None Include="shaders\light_cube.vert" />
+    <None Include="shaders\vshader2.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\stb_loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

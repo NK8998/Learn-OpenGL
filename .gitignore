@@ -67,3 +67,5 @@ cmake-build-*/
 *.log
 *.dmp
 *.stackdump
+
+SortedExamples/

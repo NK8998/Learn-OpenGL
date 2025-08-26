@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{11168cd2-878c-44f8-a574-97706aede58a}</ProjectGuid>
-    <RootNamespace>Colors</RootNamespace>
+    <ProjectGuid>{d6c5ba18-a8da-49e9-bd02-73b5704907b2}</ProjectGuid>
+    <RootNamespace>MultipleLights</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -59,23 +59,23 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Shared.props" />
     <Import Project="..\..\Shared.props" />
+    <Import Project="..\Shared.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Shared.props" />
     <Import Project="..\..\Shared.props" />
+    <Import Project="..\Shared.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Shared.props" />
     <Import Project="..\..\Shared.props" />
+    <Import Project="..\Shared.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Shared.props" />
     <Import Project="..\..\Shared.props" />
+    <Import Project="..\Shared.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -131,33 +131,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="includes\stb_loader.h" />
-    <ClCompile Include="main.cpp" />
-    <None Include="shaders\light_cube.vert">
-      <FileType>Document</FileType>
-    </None>
-    <ClCompile Include="sources\cube.cpp" />
-    <ClCompile Include="sources\scene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\colors.frag" />
-    <None Include="shaders\light_cube.frag" />
-    <None Include="shaders\fshader3.frag" />
-    <None Include="shaders\colors.vert" />
-    <None Include="shaders\vshader2.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="includes\camera.h" />
     <ClInclude Include="includes\cube.h" />
     <ClInclude Include="includes\functions.h" />
     <ClInclude Include="includes\scene.h" />
     <ClInclude Include="includes\shader.h" />
     <ClInclude Include="includes\stb_image.h" />
+    <ClInclude Include="includes\stb_loader.cpp" />
     <ClInclude Include="includes\textures.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\colors.frag" />
+    <None Include="shaders\colors.vert" />
+    <None Include="shaders\fshader3.frag" />
+    <None Include="shaders\light_cube.frag" />
+    <None Include="shaders\light_cube.vert" />
+    <None Include="shaders\vshader2.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="sources\cube.cpp" />
+    <ClCompile Include="sources\scene.cpp" />
+    <ClCompile Include="sources\stb_loader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
