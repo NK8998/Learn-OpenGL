@@ -69,3 +69,5 @@ cmake-build-*/
 *.stackdump
 
 SortedExamples/
+external/
+ 

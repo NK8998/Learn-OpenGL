@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "loading-assimp\\x64\\Debug\\glm.cppm.obj",
+            "outputs": [
+                "C:\\Users\\HP\\Desktop\\Work\\Learn OpenGL\\model-loading\\loading-assimp\\loading-assimp\\x64\\Debug\\vc143.pdb",
+                "loading-assimp\\x64\\Debug\\",
+                "C:\\Users\\HP\\Desktop\\Work\\Learn OpenGL\\model-loading\\loading-assimp\\loading-assimp\\x64\\Debug\\glm.cppm.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "glm",
+                    "source-path": "c:\\users\\hp\\desktop\\work\\learn opengl\\model-loading\\loading-assimp\\external\\glm\\include\\glm\\glm.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": []
+        }
+    ]
+}
