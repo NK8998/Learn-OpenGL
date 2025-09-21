@@ -70,4 +70,5 @@ cmake-build-*/
 
 SortedExamples/
 external/
- 
+x64/
+Debug/

@@ -70,6 +70,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir)src\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir)src\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -113,6 +119,8 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /D "$(SolutionDir)external\assimp\bin\Debug\assimp-vc143-mtd.dll" "$(OutDir)"
+xcopy /Y /D /E /I "$(SolutionDir)src\shaders" "$(OutDir)shaders\"
+xcopy /Y /D /E /I "$(SolutionDir)src\resources" "$(OutDir)resources\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -135,14 +143,44 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /D "$(SolutionDir)external\assimp\bin\Debug\assimp-vc143-mtd.dll" "$(OutDir)"
+xcopy /Y /D /E /I "$(SolutionDir)src\shaders" "$(OutDir)shaders\"
+xcopy /Y /D /E /I "$(SolutionDir)src\resources" "$(OutDir)resources\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\source\cube.cpp" />
+    <ClCompile Include="src\source\glad.c" />
     <ClCompile Include="src\source\main.cpp" />
+    <ClCompile Include="src\source\mesh.cpp" />
+    <ClCompile Include="src\source\model.cpp" />
+    <ClCompile Include="src\source\scene.cpp" />
+    <ClCompile Include="src\source\stb_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\assimp\lib\Debug\assimp-vc143-mtd.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\include\camera.h" />
+    <ClInclude Include="src\include\cube.h" />
+    <ClInclude Include="src\include\functions.h" />
+    <ClInclude Include="src\include\get_execution_dir.h" />
+    <ClInclude Include="src\include\mesh.h" />
+    <ClInclude Include="src\include\model.h" />
+    <ClInclude Include="src\include\scene.h" />
+    <ClInclude Include="src\include\shader.h" />
+    <ClInclude Include="src\include\stb_image.h" />
+    <ClInclude Include="src\include\textures.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\colors.frag" />
+    <None Include="src\shaders\colors.vert" />
+    <None Include="src\shaders\fshader3.frag" />
+    <None Include="src\shaders\light_cube.frag" />
+    <None Include="src\shaders\light_cube.vert" />
+    <None Include="src\shaders\model_loading.frag" />
+    <None Include="src\shaders\model_loading.vert" />
+    <None Include="src\shaders\vshader2.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
