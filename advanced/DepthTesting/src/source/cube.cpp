@@ -40,11 +40,11 @@ void Cube::generateVertices()
         // Back face
         // positions // normals           // texture coords
         -w, -h, -d,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+         w,  h, -d,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
          w, -h, -d,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
          w,  h, -d,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-         w,  h, -d,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-        -w,  h, -d,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
         -w, -h, -d,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+        -w,  h, -d,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
 
         // Front face
         -w, -h,  d, 0.0f,  0.0f, 1.0f,    0.0f, 0.0f,
@@ -64,11 +64,11 @@ void Cube::generateVertices()
 
         // Right face
          w,  h,  d, 1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
+         w, -h, -d, 1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
          w,  h, -d, 1.0f,  0.0f,  0.0f,   1.0f, 1.0f,
          w, -h, -d, 1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
-         w, -h, -d, 1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
-         w, -h,  d, 1.0f,  0.0f,  0.0f,   0.0f, 0.0f,
          w,  h,  d, 1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
+         w, -h,  d, 1.0f,  0.0f,  0.0f,   0.0f, 0.0f,
 
          // Bottom face
          -w, -h, -d, 0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
@@ -80,11 +80,11 @@ void Cube::generateVertices()
 
          // Top face
          -w,  h, -d, 0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+          w,  h,  d, 0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
           w,  h, -d, 0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
           w,  h,  d, 0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-          w,  h,  d, 0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-         -w,  h,  d, 0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-         -w,  h, -d, 0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+         -w,  h, -d, 0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+         -w,  h,  d, 0.0f,  1.0f,  0.0f,  0.0f, 0.0f
     };
 
 }
