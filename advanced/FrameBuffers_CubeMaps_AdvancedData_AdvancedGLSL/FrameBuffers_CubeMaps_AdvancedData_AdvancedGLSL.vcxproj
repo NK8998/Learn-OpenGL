@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1747d314-98ac-403f-8cf4-b28f1ce44a50}</ProjectGuid>
-    <RootNamespace>DepthTesting</RootNamespace>
+    <ProjectGuid>{0ea60d01-11e5-465b-84bc-8fc37ff0fed2}</ProjectGuid>
+    <RootNamespace>FrameBuffersCubeMapsAdvancedDataAdvancedGLSL</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -59,19 +59,23 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="vs-assimp.props" />
+    <Import Project="..\DepthTesting_StencilTesting_Blending_FaceCulling\vs-assimp.props" />
+    <Import Project="..\..\Shared.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="vs-assimp.props" />
+    <Import Project="..\DepthTesting_StencilTesting_Blending_FaceCulling\vs-assimp.props" />
+    <Import Project="..\..\Shared.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="vs-assimp.props" />
+    <Import Project="..\DepthTesting_StencilTesting_Blending_FaceCulling\vs-assimp.props" />
+    <Import Project="..\..\Shared.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="vs-assimp.props" />
+    <Import Project="..\DepthTesting_StencilTesting_Blending_FaceCulling\vs-assimp.props" />
+    <Import Project="..\..\Shared.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -112,19 +116,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\assimp\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\glad\include;$(SolutionDir)external\glm\include;$(SolutionDir)external\khr\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\external\assimp\include;$(SolutionDir)..\..\external\glfw\include;$(SolutionDir).\..\external\glad\include;$(SolutionDir)..\..\external\glm\include;$(SolutionDir)..\..\external\khr\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\external\assimp\lib\$(Configuration);$(SolutionDir)..\..\external\glfw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc143-mtd.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\assimp\lib\$(Configuration);$(SolutionDir)external\glfw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /D "$(SolutionDir)external\assimp\bin\Debug\assimp-vc143-mtd.dll" "$(OutDir)"
-xcopy /Y /D /E /I "$(SolutionDir)src\shaders" "$(OutDir)shaders\"
-xcopy /Y /D /E /I "$(SolutionDir)src\resources" "$(OutDir)resources\"</Command>
+      <Command>xcopy /Y /D "$(SolutionDir)..\..\external\assimp\bin\Debug\assimp-vc143-mtd.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,21 +137,29 @@ xcopy /Y /D /E /I "$(SolutionDir)src\resources" "$(OutDir)resources\"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\assimp\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\glad\include;$(SolutionDir)external\glm\include;$(SolutionDir)external\khr\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\external\assimp\include;$(SolutionDir)..\..\external\glfw\include;$(SolutionDir).\..\external\glad\include;$(SolutionDir)..\..\external\glm\include;$(SolutionDir)..\..\external\khr\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\external\assimp\lib\$(Configuration);$(SolutionDir)..\..\external\glfw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc143-mtd.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\assimp\lib\$(Configuration);$(SolutionDir)external\glfw\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /D "$(SolutionDir)external\assimp\bin\Debug\assimp-vc143-mtd.dll" "$(OutDir)"
-xcopy /Y /D /E /I "$(SolutionDir)src\shaders" "$(OutDir)shaders\"
-xcopy /Y /D /E /I "$(SolutionDir)src\resources" "$(OutDir)resources\"</Command>
+      <Command>xcopy /Y /D "$(SolutionDir)..\..\external\assimp\bin\Debug\assimp-vc143-mtd.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\source\cube.cpp" />
+    <ClCompile Include="src\source\glad.c" />
+    <ClCompile Include="src\source\load_texture.cpp" />
+    <ClCompile Include="src\source\main.cpp" />
+    <ClCompile Include="src\source\mesh.cpp" />
+    <ClCompile Include="src\source\model.cpp" />
+    <ClCompile Include="src\source\scene.cpp" />
+    <ClCompile Include="src\source\stb_loader.cpp" />
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\camera.h" />
     <ClInclude Include="src\include\cube.h" />
@@ -161,16 +171,6 @@ xcopy /Y /D /E /I "$(SolutionDir)src\resources" "$(OutDir)resources\"</Command>
     <ClInclude Include="src\include\shader.h" />
     <ClInclude Include="src\include\stb_image.h" />
     <ClInclude Include="src\include\textures.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\source\cube.cpp" />
-    <ClCompile Include="src\source\glad.c" />
-    <ClCompile Include="src\source\load_texture.cpp" />
-    <ClCompile Include="src\source\main.cpp" />
-    <ClCompile Include="src\source\mesh.cpp" />
-    <ClCompile Include="src\source\model.cpp" />
-    <ClCompile Include="src\source\scene.cpp" />
-    <ClCompile Include="src\source\stb_loader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

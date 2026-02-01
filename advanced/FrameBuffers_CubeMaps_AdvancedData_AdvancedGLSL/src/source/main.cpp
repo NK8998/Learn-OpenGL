@@ -102,8 +102,8 @@ int main() {
     //buld and compile shader program
     //-------------------------------
     //Shader ourShader(makeSourcePath("shaders/depth_testing.vert"), makeSourcePath("shaders/depth_testing.frag"));
-    Shader shader(makeSourcePath("shaders/blending.vert"), makeSourcePath("shaders/blending.frag"));
-    Shader shaderSingleColor(makeSourcePath("shaders/stencil_testing.vert"), makeSourcePath("shaders/stencil_single_color.frag"));
+    Shader shader("../../shaders/blending.vert", "../../shaders/blending.frag");
+    Shader shaderSingleColor("../../shaders/stencil_testing.vert", "../../shaders/stencil_single_color.frag");
 
 
 
@@ -212,9 +212,9 @@ int main() {
     glBindVertexArray(0);
 
 
-    unsigned int cubeTexture = loadTexture(makeSourcePath("resources/images/texture_img1.jpg").c_str());
-    unsigned int floorTexture = loadTexture(makeSourcePath("resources/images/425.jpg").c_str());
-    unsigned int trasparentTexture = loadTexture(makeSourcePath("resources/images/window.png").c_str());
+    unsigned int cubeTexture = loadTexture("../../resources/images/texture_img1.jpg");
+    unsigned int floorTexture = loadTexture("../../resources/images/425.jpg");
+    unsigned int trasparentTexture = loadTexture("../../resources/images/window.png");
 
     std::vector<glm::vec3> vegetation;
     vegetation.push_back(glm::vec3(-1.5f, 0.0f, -0.48f));
