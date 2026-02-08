@@ -220,7 +220,6 @@ int main() {
     screenShader.use();
     shader.setInt("screenTexture", 0);
 
-
     //rendering to a texture
     unsigned int framebuffer;
     glGenFramebuffers(1, &framebuffer);
