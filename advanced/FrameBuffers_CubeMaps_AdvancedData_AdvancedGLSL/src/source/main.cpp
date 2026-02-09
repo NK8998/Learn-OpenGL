@@ -176,6 +176,18 @@ int main() {
          1.0f,  1.0f,  1.0f, 1.0f
     };
 
+    //rear view quad
+    float rearQuadVertices[] = {
+        //positions    //texture coords
+        0.5f, 1.0f,    0.75f, 1.0f,
+        0.5f, 0.5f,    0.75f, 0.75f,
+        1.0f, 0.5f,    1.0f,  0.75f,
+
+        0.5f, 1.0f,    0.75f, 1.0f,
+        1.0f, 0.5f,    1.0f,  0.75f,
+        1.0f, 1.0f,    1.0f, 1.0f
+    };
+
     //cube
     unsigned int cubeVAO, cubeVBO;
     glGenVertexArrays(1, &cubeVAO);
@@ -209,7 +221,17 @@ int main() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
+    //read quad VAO
+    unsigned int rearQuadVAO, rearQuadVBO;
+    glGenVertexArrays(1, &rearQuadVAO);
+    glGenBuffers(1, &rearQuadVBO);
+    glBindVertexArray(rearQuadVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, rearQuadVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(rearQuadVertices), &rearQuadVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
     unsigned int cubeTexture = loadTexture("../../resources/images/texture_img1.jpg");
     unsigned int floorTexture = loadTexture("../../resources/images/425.jpg");
@@ -301,6 +323,46 @@ int main() {
         glBindVertexArray(quadVAO);
         glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
         glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        //RENDER
+        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+        glEnable(GL_DEPTH_TEST);
+
+        shader.use();
+        projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.f);
+        shader.setMat4("view", view);
+        shader.setMat4("projection", projection);
+        //cubes
+        glBindVertexArray(cubeVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, cubeTexture);
+        model = glm::translate(model, glm::vec3(-1.0f, 0.0f, 1.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 2.0f));
+        shader.setMat4("model", model);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(2.0f, 0.0f, 1.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 2.0f));
+        shader.setMat4("model", model);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        //floor
+        glBindVertexArray(planeVAO);
+        glBindTexture(GL_TEXTURE_2D, floorTexture);
+        model = glm::mat4(1.0f);
+        shader.setMat4("model", model);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glBindVertexArray(0);
+
+        //now we bind back to default framebuffer and draw a quad plane with attached frambuffer color texture
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glDisable(GL_DEPTH_TEST);
+
+        screenShader.use();
+        glBindVertexArray(rearQuadVAO);
+        glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();
