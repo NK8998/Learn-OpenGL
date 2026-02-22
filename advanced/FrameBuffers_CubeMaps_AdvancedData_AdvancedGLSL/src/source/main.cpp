@@ -288,7 +288,11 @@ int main() {
 
         shader.use();
         glm::mat4 model = glm::mat4(1.0f);
+        camera.Yaw += 180.0f;
+        camera.ProcessMouseMovement(0, 0, false);
         glm::mat4 view = camera.GetViewMatrix();
+        camera.Yaw -= 180.0f;
+        camera.ProcessMouseMovement(0, 0, true);
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.f);
         shader.setMat4("view", view);
         shader.setMat4("projection", projection);
@@ -314,24 +318,15 @@ int main() {
 
         //now we bind back to default framebuffer and draw a quad plane with attached frambuffer color texture
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glDisable(GL_DEPTH_TEST);
+
         //clear all relevant buffers
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        screenShader.use();
-        glBindVertexArray(quadVAO);
-        glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        //RENDER
-        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-        glEnable(GL_DEPTH_TEST);
-
-        shader.use();
-        projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.f);
+        model = glm::mat4(1.0f);
+        view = camera.GetViewMatrix();
         shader.setMat4("view", view);
-        shader.setMat4("projection", projection);
+
         //cubes
         glBindVertexArray(cubeVAO);
         glActiveTexture(GL_TEXTURE0);
@@ -348,20 +343,16 @@ int main() {
         //floor
         glBindVertexArray(planeVAO);
         glBindTexture(GL_TEXTURE_2D, floorTexture);
-        model = glm::mat4(1.0f);
-        shader.setMat4("model", model);
+        shader.setMat4("model", glm::mat4(1.0f));
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
 
-        //now we bind back to default framebuffer and draw a quad plane with attached frambuffer color texture
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glDisable(GL_DEPTH_TEST);
 
         screenShader.use();
         glBindVertexArray(rearQuadVAO);
         glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
         glDrawArrays(GL_TRIANGLES, 0, 6);
-
 
 
         glfwSwapBuffers(window);
