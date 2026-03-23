@@ -2,7 +2,7 @@
 out vec4 FragColor;
 
 in vec2 TexCoords;
-
+ 
 uniform sampler2D screenTexture;
 
 const float offset = 1.0 / 300.0;
@@ -18,7 +18,7 @@ void main()
 		vec2(offset,  0.0f),
 		vec2(-offset, -offset),
 		vec2(0.0f,    -offset),
-		vec2(offset,    -offset)
+		vec2(offset,  -offset)
 	);
 
 	float kernel[9] = float[](
