@@ -94,6 +94,8 @@ int main() {
     Shader shader("../../shaders/cubemaps.vert", "../../shaders/cubemaps.frag");
     Shader skyboxShader("../../shaders/skybox.vert", "../../shaders/skybox.frag");
 
+    Model myModel("../../resources/objects/backpack/backpack.obj");
+
     float cubeVertices[] = {
     -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
      0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -248,11 +250,12 @@ int main() {
         shader.setMat4("projection", projection);
         shader.setVec3("cameraPos", camera.Position);
         //cubes
-        glBindVertexArray(cubeVAO);
+        myModel.Draw(shader);
+      /*  glBindVertexArray(cubeVAO);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
         glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
+        glBindVertexArray(0);*/
         //draw skybox as last
         glDepthFunc(GL_LEQUAL);
         skyboxShader.use();
