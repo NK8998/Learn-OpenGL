@@ -96,7 +96,7 @@ int main() {
     //buld and compile shader program
     //--------------------------
     //Shader ourShader(makeSourcePath("shaders/depth_testing.vert`"), makeSourcePath("shaders/depth_testing.frag"));
-    Shader shader("../../shaders/geometry_shader.vert", "../../shaders/geometry_shader.frag", "../../shaders/geometry_shader.geom");
+    Shader shader("../../shaders/geometry_shader.vert", "../../shaders/geometry_shader.frag", "");
     Shader skyboxShader("../../shaders/skybox.vert", "../../shaders/skybox.frag", "");
 
     //Model myModel("../../resources/objects/backpack/backpack.obj");
@@ -247,12 +247,12 @@ int main() {
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
     
     glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * sizeof(glm::mat4));
-
+    /*
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
     glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(projection));
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
+    */
     unsigned int frontTexture = loadTexture("../../resources/images/texture_img1.jpg");
     unsigned int backTexture = loadTexture("../../resources/images/wooden_floor.jpg");
 
@@ -266,7 +266,7 @@ int main() {
         "../../resources/images/skybox/back.jpg",
     };
 
-    Model model("../../resources/objecs/backpack/backpack.obj");
+    Model myModel("../../resources/objects/backpack/backpack.obj");
 
     //unsigned int cubemapTexture = loadCubemap(faces);
 
@@ -279,7 +279,8 @@ int main() {
     //skyboxShader.setInt("skybox", 0);
 
     //glEnable(GL_PROGRAM_POINT_SIZE);
-
+    glEnable(GL_DEPTH_TEST);
+    stbi_set_flip_vertically_on_load(true);
     //render loop
     while (!glfwWindowShouldClose(window))
     {
@@ -291,13 +292,24 @@ int main() {
         //input
         processInput(window);
 
+        shader.use();
+
+        shader.setVec3("lightPos", lightPos);
+        shader.setVec3("viewPos", camera.Position);
+        shader.setVec3("lightColor", lightColor);
+
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        shader.use();
-        model.Draw(shader);
-        glBindVertexArray(pointsVAO);
-        glDrawArrays(GL_POINTS, 0, 4);
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.f);
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = camera.GetViewMatrix();
+        shader.setMat4("projection", projection);
+        shader.setMat4("view", view);
+        shader.setMat4("model", model);
+        myModel.Draw(shader);
+        /*glBindVertexArray(pointsVAO);
+        glDrawArrays(GL_POINTS, 0, 4);*/
 
      /*   glm::mat4 model;
         glm::mat4 view = camera.GetViewMatrix();

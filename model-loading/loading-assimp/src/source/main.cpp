@@ -85,13 +85,13 @@ int main() {
 
     stbi_set_flip_vertically_on_load(true);
 
-    glEnable(GL_DEPTH_TEST);
+   glEnable(GL_DEPTH_TEST);
 
     //buld and compile shader program
     //-------------------------------
     Shader ourShader(makeSourcePath("shaders/model_loading.vert"), makeSourcePath("shaders/model_loading.frag"));
 
-    Model ourModel(makeSourcePath("resources/objects/camaro/scene.gltf"));
+    Model ourModel(makeSourcePath("resources/objects/backpack/backpack.obj"));
 
     //render loop
     while (!glfwWindowShouldClose(window))
