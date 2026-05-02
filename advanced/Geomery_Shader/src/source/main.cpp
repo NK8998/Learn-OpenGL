@@ -49,7 +49,6 @@ float lastFrame = 0.0f;
 glm::vec3 lightPos = glm::vec3(2.0f, 4.0f, 5.0f);
 glm::vec3 lightColor = glm::vec3(1.0f);
 
-
 int main() {
     //glfw: initialize and configure
 
@@ -83,21 +82,21 @@ int main() {
         return -1;
     }
 
-    //stbi_set_flip_vertically_on_load(true);
+    //glEnable(GL_PROGRAM_POINT_SIZE);
+    glEnable(GL_DEPTH_TEST);
+    stbi_set_flip_vertically_on_load(true);
 
-    //--------------------------
-    //glEnable(GL_DEPTH_TEST);
 
-    Shader shaderRed("../../shaders/advanced_glsl.vert", "../../shaders/advanced_glsl.frag", "");
-    Shader shaderGreen("../../shaders/advanced_glsl.vert", "../../shaders/advanced_glsl.frag", "");
-    Shader shaderBlue("../../shaders/advanced_glsl.vert", "../../shaders/advanced_glsl.frag", "");
-    Shader shaderYellow("../../shaders/advanced_glsl.vert", "../../shaders/advanced_glsl.frag", "");
+    //Shader shaderRed("../../shaders/advanced_glsl.vert", "../../shaders/advanced_glsl.frag", "");
+    //Shader shaderGreen("../../shaders/advanced_glsl.vert", "../../shaders/advanced_glsl.frag", "");
+    //Shader shaderBlue("../../shaders/advanced_glsl.vert", "../../shaders/advanced_glsl.frag", "");
+    //Shader shaderYellow("../../shaders/advanced_glsl.vert", "../../shaders/advanced_glsl.frag", "");
 
     //buld and compile shader program
     //--------------------------
     //Shader ourShader(makeSourcePath("shaders/depth_testing.vert`"), makeSourcePath("shaders/depth_testing.frag"));
-    Shader shader("../../shaders/geometry_shader.vert", "../../shaders/geometry_shader.frag", "");
-    Shader skyboxShader("../../shaders/skybox.vert", "../../shaders/skybox.frag", "");
+    Shader shader("../../shaders/geometry_shader.vert", "../../shaders/geometry_shader.frag", "../../shaders/geometry_shader.geom");
+    //Shader skyboxShader("../../shaders/skybox.vert", "../../shaders/skybox.frag", "");
 
     //Model myModel("../../resources/objects/backpack/backpack.obj");
 
@@ -198,6 +197,7 @@ int main() {
         -0.5f, -0.5f, 1.0f, 1.0f, 0.0f  // bottom-left
     };
 
+    /*
     unsigned int pointsVAO, pointsVBO;
     glGenVertexArrays(1, &pointsVAO);
     glGenBuffers(1, &pointsVBO);
@@ -247,14 +247,13 @@ int main() {
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
     
     glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * sizeof(glm::mat4));
-    /*
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
     glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(projection));
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
     */
-    unsigned int frontTexture = loadTexture("../../resources/images/texture_img1.jpg");
-    unsigned int backTexture = loadTexture("../../resources/images/wooden_floor.jpg");
+    //unsigned int frontTexture = loadTexture("../../resources/images/texture_img1.jpg");
+    //unsigned int backTexture = loadTexture("../../resources/images/wooden_floor.jpg");
 
     std::vector<std::string> faces
     {
@@ -267,6 +266,7 @@ int main() {
     };
 
     Model myModel("../../resources/objects/backpack/backpack.obj");
+    shader.use();
 
     //unsigned int cubemapTexture = loadCubemap(faces);
 
@@ -278,9 +278,6 @@ int main() {
     //skyboxShader.use();
     //skyboxShader.setInt("skybox", 0);
 
-    //glEnable(GL_PROGRAM_POINT_SIZE);
-    glEnable(GL_DEPTH_TEST);
-    stbi_set_flip_vertically_on_load(true);
     //render loop
     while (!glfwWindowShouldClose(window))
     {
@@ -291,27 +288,35 @@ int main() {
 
         //input
         processInput(window);
+        glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shader.use();
-
+        shader.setFloat("time", glfwGetTime());
         shader.setVec3("lightPos", lightPos);
         shader.setVec3("viewPos", camera.Position);
         shader.setVec3("lightColor", lightColor);
 
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
+        //view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.f);
-        glm::mat4 model = glm::mat4(1.0f);
         glm::mat4 view = camera.GetViewMatrix();
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
+
+        //render the model
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
         shader.setMat4("model", model);
         myModel.Draw(shader);
-        /*glBindVertexArray(pointsVAO);
-        glDrawArrays(GL_POINTS, 0, 4);*/
 
-     /*   glm::mat4 model;
+        /*
+        glBindVertexArray(pointsVAO);
+        glDrawArrays(GL_POINTS, 0, 4);
+        */
+
+        /*
+        glm::mat4 model;
         glm::mat4 view = camera.GetViewMatrix();
         glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
         glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(view));
@@ -385,12 +390,12 @@ int main() {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
+    /*
     glDeleteVertexArrays(1, &cubeVAO);
     glDeleteVertexArrays(1, &skyboxVAO);
     glDeleteBuffers(1, &cubeVBO);
     glDeleteBuffers(1, &skyboxVBO);
-
+    */
     glfwTerminate();
 
     return 0;

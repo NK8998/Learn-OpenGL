@@ -1,6 +1,6 @@
 #version 460 core
 
-in VS_OUT {
+in GS_OUT {
     vec2 TexCoords;
     vec3 FragPos;
     mat3 TBN;
