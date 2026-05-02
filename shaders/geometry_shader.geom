@@ -1,6 +1,6 @@
 #version 460 core
 layout (triangles) in;
-layout (triangle_strip, max_vertices = 3) out;
+layout (triangle_strip, max_vertices = 4) out;
 
 in VS_OUT {
 	vec2 TexCoords;
@@ -34,19 +34,19 @@ void main()
 {
 	vec3 normal = GetNormal();
 
-	gl_Position = explode(gl_in[0].gl_Position, normal);
+	gl_Position = gl_in[0].gl_Position;
 	gs_out.TexCoords = gs_in[0].TexCoords;
 	gs_out.FragPos = gs_in[0].FragPos;
 	gs_out.TBN = gs_in[0].TBN;
 	EmitVertex();
 
-	gl_Position = explode(gl_in[1].gl_Position, normal);
+	gl_Position = gl_in[1].gl_Position;
 	gs_out.TexCoords = gs_in[1].TexCoords;
 	gs_out.FragPos = gs_in[1].FragPos;
 	gs_out.TBN = gs_in[1].TBN;
 	EmitVertex();
 
-	gl_Position = explode(gl_in[2].gl_Position, normal);
+	gl_Position = gl_in[2].gl_Position;
 	gs_out.TexCoords = gs_in[2].TexCoords;
 	gs_out.FragPos = gs_in[2].FragPos;
 	gs_out.TBN = gs_in[2].TBN;
