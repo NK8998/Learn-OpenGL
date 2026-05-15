@@ -133,6 +133,8 @@
     <ClInclude Include="src\include\cube.h" />
     <ClInclude Include="src\include\functions.h" />
     <ClInclude Include="src\include\game.h" />
+    <ClInclude Include="src\include\game_level.h" />
+    <ClInclude Include="src\include\game_object.h" />
     <ClInclude Include="src\include\get_execution_dir.h" />
     <ClInclude Include="src\include\mesh.h" />
     <ClInclude Include="src\include\model.h" />
@@ -146,7 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\source\cube.cpp" />
-    <ClCompile Include="src\source\Game.cpp" />
+    <ClCompile Include="src\source\game.cpp" />
+    <ClCompile Include="src\source\game_level.cpp" />
+    <ClCompile Include="src\source\game_object.cpp" />
     <ClCompile Include="src\source\glad.c" />
     <ClCompile Include="src\source\load_texture.cpp" />
     <ClCompile Include="src\source\main.cpp" />
