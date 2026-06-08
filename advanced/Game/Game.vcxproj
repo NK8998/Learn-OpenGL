@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\include\ball_object.h" />
     <ClInclude Include="src\include\camera.h" />
     <ClInclude Include="src\include\cube.h" />
     <ClInclude Include="src\include\functions.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="src\include\textures.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\source\ball_object.cpp" />
     <ClCompile Include="src\source\cube.cpp" />
     <ClCompile Include="src\source\game.cpp" />
     <ClCompile Include="src\source\game_level.cpp" />

@@ -63,6 +63,9 @@
     <ClInclude Include="src\include\game_object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\include\ball_object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\source\cube.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\source\game_level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\source\ball_object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
