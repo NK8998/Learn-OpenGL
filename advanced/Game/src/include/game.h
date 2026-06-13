@@ -35,6 +35,9 @@ public:
 	void Update(float dt);
 	void Render();
 	void DoCollisions();
+
+	void ResetLevel();
+	void ResetPlayer();
 };
 
 #endif
