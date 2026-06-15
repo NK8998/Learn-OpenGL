@@ -139,6 +139,7 @@
     <ClInclude Include="src\include\get_execution_dir.h" />
     <ClInclude Include="src\include\mesh.h" />
     <ClInclude Include="src\include\model.h" />
+    <ClInclude Include="src\include\particle_generator.h" />
     <ClInclude Include="src\include\resource_manager.h" />
     <ClInclude Include="src\include\scene.h" />
     <ClInclude Include="src\include\shader.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="src\source\main.cpp" />
     <ClCompile Include="src\source\mesh.cpp" />
     <ClCompile Include="src\source\model.cpp" />
+    <ClCompile Include="src\source\particle_generator.cpp" />
     <ClCompile Include="src\source\resource_manager.cpp" />
     <ClCompile Include="src\source\scene.cpp" />
     <ClCompile Include="src\source\shader.cpp" />
